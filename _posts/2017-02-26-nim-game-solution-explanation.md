@@ -19,16 +19,6 @@ For example, if there are 4 stones in the heap, then you will never win the game
 
 The problem can be found on [LeetCode](https://leetcode.com/problems/nim-game)
 
-
-```cpp
-class Solution {
-public:
-    bool canWinNim(int n) {
-        return n % 4 != 0;
-    }
-};
-```
-
 Let's look at the basic case. If 1 or 2 or 3 stones left and it's my turn, I'm gonna win.
 
 So how to guarantee this "win" status? That must be 4 stones left when it's my friend's turn. Because 4 - 1 = 3, 4 - 2 = 2, 4 - 3 = 1. 
@@ -45,8 +35,14 @@ T(n) = {(((1 + 4) + 4) + 4 ..., ((2 + 4) +4) + 4 ..., ((3 + 4) +4) + 4 ...}
      = {1 + 4*n, 2 + 4*n, 3 + 4*n}
 
 Can you get the idea? If T(n) % 4 is 1 or 2 or 3, we can win the game. And beacuse the mod value can only be 0, 1, 2 or 3, that implies if T(n) % 4 != 0, we'll win the game. Now we get the one liner:
-```
- return n % 4 != 0;
+
+```cpp
+class Solution {
+public:
+    bool canWinNim(int n) {
+        return n % 4 != 0;
+    }
+};
 ```
 
 Happy coding :)
