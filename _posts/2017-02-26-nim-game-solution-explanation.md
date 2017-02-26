@@ -7,6 +7,9 @@ comments: true
 categories: [Uncategorized]
 published: true
 ---
+
+# Problem Description
+
 Below is a description of the Nim game:
 
 
@@ -18,6 +21,8 @@ For example, if there are 4 stones in the heap, then you will never win the game
 
 
 The problem can be found on [LeetCode](https://leetcode.com/problems/nim-game)
+
+# Analysis
 
 Let's look at the basic case. If 1 or 2 or 3 stones left and it's my turn, I'm gonna win.
 
