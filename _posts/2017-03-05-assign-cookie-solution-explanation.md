@@ -58,7 +58,7 @@ This property makes the comparison time complexity O(1). Consider following case
 1. If the last number in the 2nd array is >= target number, we found the matched number, done.
 2. If the last number in the 2nd array is < target number, no matched number in the 2nd array can be found, done.
 
-Obviously, the inner loop can be eliminated. We just need exactly 1 comparison which is O(1)
+Obviously, the inner loop can be eliminated. We just need exactly 1 comparison which decreases the time complexity to O(1)
 
 Are we done? Nope. Consider following case:
 
