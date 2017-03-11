@@ -47,15 +47,15 @@ So the strategy is simple:
 
 How about the time complexity? Let's say we have n elements in the array. We have to iterate the array to find the maximum number so we'll take O(n) in step 1. In step 2, we still need to iterate the array so we have O(n) either. Needless to say, we should iterate the array in step 3, so we take O(n) as well. Now step 4 introduces a loop for step 1, 2 and 3 and the loop count is the minimum moves m. The final time complexity is O(m * 3n).
 
-If the differences between minimum and maximum number large enough, we may suffer a performance problem. For example, if we have following n size array:
+If the differences between minimum and maximum number are large enough, we may suffer a performance problem. For example, if we have following n size array:
 
 [1, 1, ..., 1, 2147483647]
 
-The m is big enough to make the O(m * 3n) time complexity slow. Even if we can easily calculate the minimum moves (2147483647 - 1 = 2147483646), our method still needs to waste loops and checks to get the result.
+The m is big enough to make the O(m * 3n) time complexity large. Even if we can easily calculate the minimum moves (2147483647 - 1 = 2147483646), our method still needs to waste loops and checks to get the result.
 
 OK, can we do better?
 
-Take a look at the steps in our method. We depends on the iteration heavily. We cannot improve the performance if the iterations cannot be eliminated.
+Take a look at the steps in our method. We depends on iterations heavily. We cannot improve the performance if the iterations cannot be eliminated.
 
 Let's look at the final state of the array: we have n elements with a same value f. What's the changes to the initial status? In each move, we have to increase the values of n - 1 elements. So when we reach the final status, we increased m * (n - 1) values to the initial array. Now we get a very important property:
 
@@ -69,9 +69,9 @@ Our task is to calculate m. So we have:
 m = (n * f - sum(array)) / (n - 1)
 ```
 
-Now we have a new problem: We knew n, Sum(array) but not f. How can we solve this equation?
+Now we have a new problem: We knew n, sum(array) but not f. How can we solve this equation?
 
-Let's think reverse. If we knew f, we can solve the problem. We knew all information of the input array, how can we calculate the f?
+Let's think reverse. If we knew f, we can solve the problem. Now we knew all information of the input array, how can we calculate the f?
 
 Ultimately, each element in the array will be increased to f after m moves. Let's say s[i] is the increased value of the ith element after m moves to reach the value f. We have following equation:
 
