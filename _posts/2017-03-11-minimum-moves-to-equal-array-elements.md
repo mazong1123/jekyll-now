@@ -34,7 +34,7 @@ The problem can be found on [LeetCode](https://leetcode.com/problems/minimum-mov
 
 The problem can be translated to:
 
-How to eliminate the differences of the numbers in an array in minimum steps. In each step, you can keep 1 element inert, and increase the value of other elements in the array".
+How to eliminate the differences of the numbers in an array in minimum steps. In each step, you can keep 1 element inert, and increase the value of other elements in the array.
 
 The intuition tells us the number of steps is dominated by the minimum and maximum numbers in the array. Because the minimum number has the largest differences to the maximum number.
 
