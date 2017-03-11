@@ -57,7 +57,7 @@ OK, can we do better?
 
 Take a look at the steps in our method. We depends on iterations heavily. We cannot improve the performance if the iterations cannot be eliminated.
 
-Let's look at the final state of the array: we have n elements with a same value f. What's the changes to the initial status? In each move, we have to increase the values of n - 1 elements. So when we reach the final status, we increased m * (n - 1) values to the initial array. Now we get a very important property:
+Let's look at the final status of the array: we have n elements with a same value f. What's the changes to the initial status? In each move, we have to increase the values of n - 1 elements. So when we reach the final status, we increased m * (n - 1) values to the initial array. Now we get a very important equation:
 
 ```
 sum(array) + m * (n - 1) = n * f
@@ -81,7 +81,7 @@ a[i] + s[i] = f
 
 We knew a[i], now we should calculate s[i]. It's trivial to prove 0 <= s[i] <= m. Because each move may increase 1 of a[i], the maximum increased value is m * 1 = m, the minimum increased value is 0 (e.g: [1, 2], no need to increase the second element so s[1] == 0), that is 0 <= s[i] <= m.
 
-How to make s[i] == m ? That means in each move, a[i] should be increased. Which element should be treated like this? First, we can pass over the maximum number. Because it is has biggest chance to avoid being increased. We cannot guarantee other elements to be increased in each move except the minimum element. The minimum element, has no chance to be the maximum number during the movement, because we only increase 1 for the elements other than the maximum element. Other elements have the chance to be the maximum elements during the movement so they may not require a incremental in its turn (e.g: [1,2,3] => [2,3,3] => [3,3,4] => [4,4,4], s[0] == 3, s[1] == 2, s[2] == 1). Now we get:
+How to make s[i] == m ? That means in each move, a[i] should be increased. Which element should be treated like this? First, we can pass over the maximum number. Because it has biggest chance to avoid being increased. We cannot guarantee other elements to be increased in each move except the minimum element. The minimum element, has no chance to be the maximum number during the movement, because we only increase 1 for the elements other than the maximum element. Other elements have the chance to be the maximum elements during the movement so they may not require a incremental in its turn (e.g: [1,2,3] => [2,3,3] => [3,3,4] => [4,4,4], s[0] == 3, s[1] == 2, s[2] == 1). Now we get:
 
 ```
 min(array) + m = f
