@@ -35,6 +35,6 @@ That's it. :)
 
 # References:
 
-https://forums.iis.net/t/1157854.aspx
+[IIS.NET](https://forums.iis.net/t/1157854.aspx)
 
-https://support.microsoft.com/en-us/help/318380/description-of-microsoft-internet-information-services-iis-5.0-and-6.0-status-codes
+[Microsoft KB](https://support.microsoft.com/en-us/help/318380/description-of-microsoft-internet-information-services-iis-5.0-and-6.0-status-codes)
