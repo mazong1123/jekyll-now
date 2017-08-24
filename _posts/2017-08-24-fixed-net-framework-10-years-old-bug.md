@@ -56,11 +56,11 @@ class Program
 
 ```
 
-Apparently, we expect `0.0` and `-0.0` should be logically the same value (although the binary representations are different. See [IEEE double precision floating point format](https://en.wikipedia.org/wiki/Double_precision)). 
+Apparently, we expect `0.0` and `-0.0` be the same value logically (although the binary representations are different. See [IEEE double precision floating point format](https://en.wikipedia.org/wiki/Double_precision)). 
 
 # Why?
 
-When comparing two `ValueType` objects, .NET framework tries to avoid use reflection if possible: It tries to compare the bit representations of the two `ValueType` objects if:
+When comparing two `ValueType` objects, .NET framework tries to avoid using reflection if possible: It tries to compare the bit representations of the two `ValueType` objects if:
 
 - The type does not contain any pointer. E.G. cannot contain class type field.
 - The type is tightly packed. That means the fields should be aligned. For example, in the previouse example, `D1` is not tightly packed because `double` and `int` have different size which is not aligned. By contrast, `D2` is tightly packed.
@@ -131,13 +131,13 @@ The expected result is `false` because we overrode the `Equals` in `NeverEquals`
 
 # Fix it
 
-The problem is how to correclty choose the path. Apparently, relies on `ContainsPointers` and `IsNotTightlyPacked` is not enough to make a right decision. We should involve two additional conditions:
+The problem is how to correclty choose the path. Apparently, relies on `ContainsPointers` and `IsNotTightlyPacked` is insufficient. We should involve two additional conditions if we want to use the bit comparison:
 
 - No floating point number fields in the type hierachy tree.
 
 - No overridden `Equals` in the type hierachy tree.
 
-Obviousely, we need a depth-first-search through the whole type hierachy tree in the worst case. That may slow down the comparing process but make a right decision always. To reduce the performance degrade, we can cache the DFS result. The [key implementation](https://github.com/dotnet/coreclr/blob/master/src/vm/comutilnative.cpp#L2661) is as following:
+Obviousely, we need a depth-first-search through the whole type hierachy tree in the worst case. That may slow down the comparing process but the benifit is we can always make a right decision. To reduce the performance degrade, we can cache the DFS result. The [key implementation](https://github.com/dotnet/coreclr/blob/master/src/vm/comutilnative.cpp#L2661) is as following:
 
 ```cpp
 static BOOL CanCompareBitsOrUseFastGetHashCode(MethodTable* mt)
@@ -213,7 +213,7 @@ static BOOL CanCompareBitsOrUseFastGetHashCode(MethodTable* mt)
 
 # What's Next?
 
-- As [discussed](https://github.com/dotnet/coreclr/pull/13164#issuecomment-322919479) with [Jan Kotas](https://github.com/jkotas), I'll add tests for this bug fix in CoreFX project.
+- As [discussed](https://github.com/dotnet/coreclr/pull/13164#issuecomment-322919479) with [Jan Kotas](https://github.com/jkotas), I'll add tests for this bug fix in [CoreFX](https://github.com/dotnet/corefx).
 
-- Although the bug has been fixed, the performance is degraded when user compares `ValueTypes` at first time. [Jan Kotas](https://github.com/jkotas) [pointed a new way to improve the performance] which looks promising:(https://github.com/dotnet/coreclr/pull/13164#discussion_r133353129):
+- Although the bug has been fixed, the performance is degraded when user compares `ValueTypes` at first time. [Jan Kotas](https://github.com/jkotas) [pointed a new way to improve the performance] (https://github.com/dotnet/coreclr/pull/13164#discussion_r133353129) which looks promising:
 > The most performant way to write these FCalls is to have the code that executes in steady state in the main method, and have all one time initialization in the helper method.
