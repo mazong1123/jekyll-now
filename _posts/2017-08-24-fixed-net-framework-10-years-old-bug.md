@@ -79,17 +79,17 @@ FCIMPL1(FC_BOOL_RET, ValueTypeHelper::CanCompareBits, Object* obj)
 FCIMPLEND
 ```
 
-As you can see, `D1` does not meet the requirements of using bit comparison. So it goes to reflection which produces correct result. `D2` goes to the fast path (bit comparison) which produces the wrong result.
+As you can see, `D1` does not meet the requirements of using bit comparison. So it goes to use reflection which produces correct result. `D2` goes to the fast path (bit comparison) which produces the wrong result.
 
-So why fast path will produce wrong result? Recall `0.0` and `-0.0` have different bit representations, bit comparison will consider `0.0` and `-0.0` are different values. That's the reason why fast path produces wrong result in this case.
+So why fast path will produce wrong result? Recall `0.0` and `-0.0` have different bit representations, bit comparison will consider `0.0` and `-0.0` as different values. That's the reason why fast path produces wrong result in this case.
 
 Why the slow path (using reflection) will work as expected? Let's think about how the comparison works. It simply needs to compare all fields of the `ValueType` in a **Normal** way, e.g. call `==` or `Equals` of `Double`. Obviously, the framework can handle `0.0` and `-0.0` correctly in this way becasue if you compare raw `double` values with `0.0` and `-0.0` it will produce correct result.
 
-Generally speaking, the problem is we did a wrong judgement when choosing fast/slow path.
+Generally speaking, the problem is we made a wrong judgement when choosing fast/slow path.
 
 # Another bug introduced by Overridden Equals
 
-Similarly, if we have a user defined struct which overrode `Equals`, the framework may choose fast path which will produce wrong result. See following example:
+Similarly, if we have an user defined struct which overrode `Equals`, the framework may choose fast path which would produce wrong result. See following example:
 
 ```csharp
 using System;
@@ -127,17 +127,17 @@ class Program
 }
 ```
 
-The expected result is `false` because we overrode the `Equals` in `NeverEquals` struct. However, the actual result is `true` because it goes to a fast path which ends up a bit comparison - it won't call the overridden `Equals` method!
+The expected result is `false` because we overrode the `Equals` in `NeverEquals` struct. However, the actual result is `true` because it goes to the fast path which ends up a bit comparison - it won't call the overridden `Equals` method!
 
 # Fix it
 
-The problem is how to correclty choose the path. Apparently, relies on `ContainsPointers` and `IsNotTightlyPacked` is insufficient. We should involve two additional conditions if we want to use the bit comparison:
+The problem is how to correclty choose the path. Apparently, relies on `ContainsPointers` and `IsNotTightlyPacked` is insufficient. Two additional conditions should be added if we want to use the bit comparison:
 
 - No floating point number fields in the type hierachy tree.
 
 - No overridden `Equals` in the type hierachy tree.
 
-Obviousely, we need a depth-first-search through the whole type hierachy tree in the worst case. That may slow down the comparing process but the benifit is we can always make a right decision. To reduce the performance degrade, we can cache the DFS result. The [key implementation](https://github.com/dotnet/coreclr/blob/master/src/vm/comutilnative.cpp#L2661) is as following:
+Obviousely, we need a depth-first-search through the whole type hierachy tree in the worst case. That may slow down the comparing process but the benifit is we can always make a right decision. To reduce the performance degradation, we can cache the DFS result. The [key implementation](https://github.com/dotnet/coreclr/blob/master/src/vm/comutilnative.cpp#L2661) is as following:
 
 ```cpp
 static BOOL CanCompareBitsOrUseFastGetHashCode(MethodTable* mt)
