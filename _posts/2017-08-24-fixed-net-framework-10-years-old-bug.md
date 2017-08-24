@@ -215,5 +215,5 @@ static BOOL CanCompareBitsOrUseFastGetHashCode(MethodTable* mt)
 
 - As [discussed](https://github.com/dotnet/coreclr/pull/13164#issuecomment-322919479) with [Jan Kotas](https://github.com/jkotas), I'll add tests for this bug fix in [CoreFX](https://github.com/dotnet/corefx).
 
-- Although the bug has been fixed, the performance is degraded when user compares `ValueTypes` at first time. [Jan Kotas](https://github.com/jkotas) [pointed a new way to improve the performance] (https://github.com/dotnet/coreclr/pull/13164#discussion_r133353129) which looks promising:
+- Although the bug has been fixed, the performance is degraded when user compares `ValueTypes` at first time. [Jan Kotas](https://github.com/jkotas) [pointed a new way to improve the performance](https://github.com/dotnet/coreclr/pull/13164#discussion_r133353129) which looks promising:
 > The most performant way to write these FCalls is to have the code that executes in steady state in the main method, and have all one time initialization in the helper method.
