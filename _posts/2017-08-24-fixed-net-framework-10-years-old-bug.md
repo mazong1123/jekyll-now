@@ -12,7 +12,7 @@ Since [my PR](https://github.com/dotnet/coreclr/pull/13164) has been merged into
 
 # What's the bug?
 
-The bug can be splitted to 2 kind of problems (although they're fundmentally the same bug).
+The bug can be splitted to 2 kind of problems (although they're fundmentally the same).
 
 The first example is from [stackoverflow](https://stackoverflow.com/questions/2508945/can-anyone-explain-this-strange-behavior-with-signed-floats-in-c/2509152)
 
