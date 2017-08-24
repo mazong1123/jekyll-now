@@ -8,7 +8,7 @@ categories: [Uncategorized]
 published: true
 ---
 
-Today [my PR](https://github.com/dotnet/coreclr/pull/13164) is merged into the master branch of .NET core. That means this [10 years old bug](https://stackoverflow.com/questions/2508945/can-anyone-explain-this-strange-behavior-with-signed-floats-in-c/2509152) from .NET framework to .NET Core finally get fixed. I'd expect it be included in 2.1.0 release.
+Since [my PR](https://github.com/dotnet/coreclr/pull/13164) has been merged into the master branch of .NET core, this [10 years old bug](https://stackoverflow.com/questions/2508945/can-anyone-explain-this-strange-behavior-with-signed-floats-in-c/2509152) from .NET framework to .NET Core finally gets fixed. I'd expect it be included in 2.1.0 release.
 
 # What's the bug?
 
