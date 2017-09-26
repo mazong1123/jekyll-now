@@ -70,11 +70,11 @@ double数据类型在内存中占用64位。这64位分为三个部分，分别�
 
 或者将f展开，看起来更清晰:
 
-![double-f1.svg](images/double-f1.svg)
+![double-f1.png](images/double-f1.png)
 
 进一步展开可得:
 
-![double-f2.svg](images/double-f2.svg)
+![double-f2.png](images/double-f2.png)
 
 为什么指数需要减去1023呢？在IEEE的规范中，`e - 1023`叫做[biased exponent](https://en.wikipedia.org/wiki/Exponent_bias). biased exponent的具体概念不会在这篇文章中讲解，目前您只需要记住double的指数不是直接使用e, 而是使用biased exponent (即e - 1023)就行了。
 
