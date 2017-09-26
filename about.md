@@ -9,7 +9,7 @@ Hello, I'm Jim, AKA [mazong1123](https://www.google.com/?gfe_rd=cr&ei=yXwcVqHPBq
 
 I love build software. And I'm currently contributing to [.NET Core](https://github.com/dotnet/coreclr/pulls?q=is%3Apr+author%3Amazong1123+is%3Aclosed). 
 
-Checkout my [CoreCLR Code Book](https://github.com/mazong1123/coreclrcodebook).
+Checkout my latest tool [Svn2Git.NET](https://github.com/mazong1123/svn2gitnet).
 
 Not frequnetly updated resume: [mazong1123.github.io](http://mazong1123.github.io/)
 
