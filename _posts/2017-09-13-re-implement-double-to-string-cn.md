@@ -58,7 +58,7 @@ public void ToString(string culturestring)
 ## IEEE Double-precision Floating Point存储结构
 double数据类型在内存中占用64位。这64位分为三个部分，分别是sign(符号, 1bit), exponent(指数, 11bit), fraction(因子, 52bit). 如下图所示:
 
-![double-mem.png](/images/double-mem.png)
+![double-mem.png](/_posts/images/double-mem.png)
 
 - 第63位为符号位，表示正负, 以sign表示。
 - 62~52位表示指数，以e表示。具体的含义可以看后面的解释。
@@ -70,11 +70,11 @@ double数据类型在内存中占用64位。这64位分为三个部分，分别�
 
 或者将f展开，看起来更清晰:
 
-![double-f1.png](/images/double-f1.png)
+![double-f1.png](/_posts/images/double-f1.png)
 
 进一步展开可得:
 
-![double-f2.png](/images/double-f2.png)
+![double-f2.png](/_posts/images/double-f2.png)
 
 为什么指数需要减去1023呢？在IEEE的规范中，`e - 1023`叫做[biased exponent](https://en.wikipedia.org/wiki/Exponent_bias). biased exponent的具体概念不会在这篇文章中讲解，目前您只需要记住double的指数不是直接使用e, 而是使用biased exponent (即e - 1023)就行了。
 
