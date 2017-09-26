@@ -476,14 +476,14 @@ digits[count] = 0;
 
 # 优化算法
 
-在上述算法实现过程中，有些地方没有完全遵照论文的设计，而是做了一些优化。特别感谢[这篇文章](http://www.ryanjuckett.com/programming/printing-floating-point-numbers/), 里面涉及的启发式除法提升了寻找小数点位置的效率，而`logTable`大大提升了log的计算效率。
+在上述算法实现过程中，有些地方没有完全遵照论文的设计，而是做了一些优化。特别感谢[这篇文章](http://www.ryanjuckett.com/programming/printing-floating-point-numbers/), 里面涉及的启发式除法提升了寻找小数点位置的效率，而`powerTable`大大提升了log的计算效率。
 
 ## 利用启发式除法提升效率
 
 
 
-## 利用logTable提升效率
-
+## 利用powerTable提升效率
+在计算数字的时候，
 
 
 # 总结
