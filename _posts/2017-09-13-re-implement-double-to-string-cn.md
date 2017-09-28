@@ -505,7 +505,7 @@ floor(floor(a)/(floor(b) + 1)) < quotient
 
 因为分母增加了1，所以得出来的商肯定比原来的商小。另外，在前面的计算中, 我们会保证numerator < 10 * denominator (只有这样，才能方便地计算小数位数，例如9.999... 如果numerator >= 10 * denominator了，就会出现10.0001之类的数字，而我们期待输出1.00001).
 
-如果`floor(floor(a)/(floor(b) + 1)) - quotient < 1`, 我们就可以正大光明地用最高位block的unsigned int相除取floor来得到真正的商了。
+如果`abs(floor(floor(a)/(floor(b) + 1)) - quotient) < 2`, 我们就可以正大光明地用最高位block的unsigned int相除取floor来得到真正的商了。
 
 为了方便计算，我们需要想办法将quotient用a和b来表示。既然a表示numerator最高位block的值，那么a = numerator >> 32 * (n - 1) = numerator / (2^32 *(n-1)), 其中n表示有多少个block组成numerator, 每个block是一个unsigned int即32位。同理b = denominator >> 32 * (n - 1) = denominator / (2^32 * (n-1)). 所以:
 
@@ -513,7 +513,7 @@ floor(floor(a)/(floor(b) + 1)) < quotient
 a / b = numerator / denominator
 ```
 
-所以只要`floor(floor(a)/(floor(b) + 1)) - a / b < 1`, 就满足我们的条件了。
+所以只要`abs(floor(floor(a)/(floor(b) + 1)) - a / b) < 2`, 就满足我们的条件了。
 
 什么样的a和b才会保证上述不等式成立呢？结论是当 `8 <= b < 9` 时。如果b不在这个范围内，则需要扩大numerator和denominator, 使得b落在这个范围内。`8 <= b < 9`的推导将会有另外的一篇文章详细讲解。
 
