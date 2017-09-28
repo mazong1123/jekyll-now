@@ -520,11 +520,7 @@ a / b = numerator / denominator
 在具体实现的时候，[PrepareHeuristicDivide](https://github.com/dotnet/coreclr/blob/master/src/classlibnative/bcltype/bignum.cpp#L263)保证`8 <= b <9`, [HeuristicDivide](https://github.com/dotnet/coreclr/blob/master/src/classlibnative/bcltype/bignum.cpp#L283)实现具体的启发式除法算法。
 
 ## 利用powerTable提升效率
-<<<<<<< 82f8ac4d7abfb36bfcdc897102c63495b9b1c242
 在整个计算过程中，经常会使用到10的n次方这样的数字。如果每次都重复计算将影响效率，特别是当n足够大，结果为BigInteger的时候。我们可以采用空间换时间的方式，预先计算好10的n次方结果，并将其保存在数组中:
-=======
-在计算需要输出的数字时，会大量
->>>>>>> Updated.
 
 ```cpp
 static constexpr UINT32 m_power10UInt32Table[UINT32POWER10NUM] = 
